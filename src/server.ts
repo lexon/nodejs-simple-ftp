@@ -1,6 +1,9 @@
 import * as net from 'net'
 import FTPConnection from './FTPConnection'
 
+import Logger from './Logger'
+const log = new Logger("Server")
+
 export class ServerConfig {
 
   constructor(public ip: string, public port: number, public ftpBaseDir: string) { }
@@ -39,27 +42,33 @@ export class Server {
       port: this.config.port,
       host: this.config.ip
     }, () => {
-      console.log('opened server on', this.server.address())
+      log.info(`FTP Server started on`, this.server.address())
     })
   }
 
   private onNewConnection(socket) {
-    console.log(`client connected!`, socket.address())
-    // this.connectedClients++;
+    log.info(`client connected from ${socket.remoteAddress}:${socket.remotePort}`)
+    this.connectedClients++;
 
-    let ftpConnection = new FTPConnection(socket, this.config.ftpBaseDir, false)
+    this.reportCurrentStats()
+
+    const ftpConnection = new FTPConnection(socket, this.config.ftpBaseDir, false)
     ftpConnection.welcome()
   }
 
   private onError(err) {
-    console.log(`onError ${err}`);
-  }
-
-  private onData(data) {
-    console.log(`onData ${data}`);
+    log.error(`onError ${err}`);
   }
 
   private onClose(a) {
-    console.log(a, 'disconnected from server')
+    log.info(a, 'clent disconnected from server.')
+    this.connectedClients--;
+
+    this.reportCurrentStats()
+  }
+
+
+  private reportCurrentStats(): void {
+    log.info(`currently active clients: ${this.connectedClients}`)
   }
 }
