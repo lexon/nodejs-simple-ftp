@@ -18,7 +18,7 @@
   "author": "Alexander Bauer",
   "license": "ISC",
   "dependencies": {
-    "winston": "^2.4.2"
+    "winston": "^3.0.0-rc6"
   },
   "devDependencies": {
     "@types/node": "^10.1.2",
