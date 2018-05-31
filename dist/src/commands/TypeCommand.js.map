@@ -1,1 +1,0 @@
-{"version":3,"file":"TypeCommand.js","sourceRoot":"","sources":["../../../src/commands/TypeCommand.ts"],"names":[],"mappings":";;AAAA,uCAA+B;AAE/B,iBAAiC,SAAQ,iBAAO;IAEvC,YAAY;QACjB,MAAM,IAAI,GAAG,IAAI,CAAC,OAAO,EAAE,CAAA;QAE3B,OAAO,mBAAmB,IAAI,GAAG,CAAA;IACnC,CAAC;IAED,OAAO;QACL,OAAO,IAAI,CAAC,IAAI,CAAC,CAAC,CAAC,CAAA;IACrB,CAAC;CACF;AAXD,8BAWC"}
