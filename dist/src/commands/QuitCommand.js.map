@@ -1,0 +1,1 @@
+{"version":3,"file":"QuitCommand.js","sourceRoot":"","sources":["../../../src/commands/QuitCommand.ts"],"names":[],"mappings":";;AAAA,uCAA+B;AAE/B,iBAAiC,SAAQ,iBAAO;IAEvC,YAAY;QACjB,OAAO,0CAA0C,CAAA;IAEnD,CAAC;IAEM,gBAAgB;QACrB,IAAI,CAAC,aAAa,CAAC,YAAY,CAAC,GAAG,EAAE,CAAA;IACvC,CAAC;CACF;AAVD,8BAUC"}
