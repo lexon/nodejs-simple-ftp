@@ -7,7 +7,7 @@ export default class QuitCommand extends Command {
     // me.writeString("221- Data traffic for this session was 0 bytes in 0 files")
   }
 
-  public afterCommandSend(): void {
+  public afterReply(): void {
     this.ftpConnection.clientSocket.end()
   }
 }

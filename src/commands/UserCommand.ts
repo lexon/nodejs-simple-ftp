@@ -2,15 +2,12 @@ import Command from './Command'
 
 export default class UserCommand extends Command {
 
-  public process(): void {
-    this.ftpConnection.currentUsername = this.getUsername()
+  public beforeReply(): void {
+    this.ftpConnection.session.username = this.firstArg
   }
 
   public replyCommand(): string {
-    return `331 Password required for ${this.getUsername()}`
+    return `331 Password required for ${this.firstArg}`
   }
 
-  getUsername(): string {
-    return this.args[0]
-  }
 }

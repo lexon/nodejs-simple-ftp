@@ -10,15 +10,26 @@ import * as stream from 'stream'
 import Logger from './Logger'
 const log = new Logger("FTPConnection")
 
+
+/**
+ * Model for user session set values.
+ */
+class FTPUserSession {
+  public username: string
+  public password: string
+
+  /**
+   * The current filepath for file which should be renamed.
+   */
+  public filepathToRename: string
+}
+
 export default class FTPConnection {
-  // private serverSocket
-  // private clientSocket
 
   /**
    * The current username provided during login step
    */
-  public currentUsername
-  public currentPassword
+  public session: FTPUserSession
 
   // private rootDirectory
   public getCurrentVisibleDirectory() {
@@ -37,11 +48,12 @@ export default class FTPConnection {
 
 
   constructor(public clientSocket, private rootDirectory: string, private sandboxRootDirectory: boolean) {
-    this.init()
+    this.initSocket()
+    this.session = new FTPUserSession()
     this.fileSystem = new Filesystem(this.rootDirectory, this.rootDirectory, sandboxRootDirectory)
   }
 
-  private init(): void {
+  private initSocket(): void {
     this.clientSocket.on('ready', this.onSocketReady)
     this.clientSocket.on('close', this.onSocketClose)
     this.clientSocket.on('error', this.onSocketError)
@@ -85,15 +97,14 @@ export default class FTPConnection {
   }
 
   private proccessCommand(command: Command) {
-    command.process()
+    command.beforeReply()
 
     // send the reply to the client
     const message = command.replyCommand()
     log.info(`to client: ${message}\r\n`)
-
-    command.beforeCommandSend()
     this.writeString(message)
-    command.afterCommandSend()
+
+    command.afterReply()
   }
 
   private writeString(message: string) {

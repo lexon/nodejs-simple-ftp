@@ -2,7 +2,7 @@ import Command from './Command'
 
 export default class PortCommand extends Command {
 
-  public afterCommandSend(): void {
+  public afterReply(): void {
     this.ftpConnection.openDataSocket(this.clientIp, this.clientPort)
   }
 

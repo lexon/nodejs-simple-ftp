@@ -2,7 +2,7 @@ import Command from './Command'
 
 export default class ListCommand extends Command {
 
-  public afterCommandSend() {
+  public afterReply() {
     const directory = this.getDirectory()
     const list: string = this.ftpConnection.fileSystem.getList(directory)
 

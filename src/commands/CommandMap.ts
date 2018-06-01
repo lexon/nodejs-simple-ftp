@@ -12,6 +12,7 @@ import TypeCommand from './TypeCommand'
 import PortCommand from './PortCommand'
 import ListCommand from './ListCommand'
 import RetrCommand from './RetrCommand'
+import RnfrCommand from './RnfrCommand'
 
 import OptsCommand from './OptsCommand'
 import QuitCommand from './QuitCommand'
@@ -59,7 +60,7 @@ const CommandMap = {
   // eprt: "doEprt",
   // mkd: "doMkdir",
   // cdup: "doCdUp",
-  // rnfr: "doRfnr",
+  rnfr: RnfrCommand,
   // rnto: "doRnto",
   // dele: "doDele",
   // rmd: "doDele",

@@ -7,7 +7,7 @@ export default class RetrCommand extends Command {
 
   private stream
 
-  public afterCommandSend() {
+  public afterReply() {
     // if a stream was created, start streaming data after informing the client
     if (this.stream) {
       this.ftpConnection.writeBinaryData(this.stream)
@@ -16,7 +16,7 @@ export default class RetrCommand extends Command {
 
   public replyCommand(): string {
     const filename = this.getFilename()
-    const filepath = this.getFilepath(filename)
+    const filepath = this.ftpConnection.fileSystem.getFilepath(filename)
     const fs = this.ftpConnection.fileSystem
 
     // default fail command
@@ -38,13 +38,6 @@ export default class RetrCommand extends Command {
     }
 
     return reply
-  }
-
-  getFilepath(filename: string): string {
-    // this.ftpConnection.fileSystem.loadFile()
-    const filepath = `${this.ftpConnection.getCurrentDirectory()}/${filename}`
-
-    return filepath
   }
 
   /**

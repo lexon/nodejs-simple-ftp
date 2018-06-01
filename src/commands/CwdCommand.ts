@@ -2,11 +2,6 @@ import Command from './Command'
 
 export default class CwdCommand extends Command {
 
-  public process(): void {
-
-  }
-
-
   //	250
   //	500, 501, 502, 421, 530, 550
   //	250 CWD command successful.
