@@ -23,10 +23,79 @@ export default class Filesystem {
     return fs.statSync(path).isDirectory()
   }
 
-  public rename(oldPath: string, newPath: string): void {
-    fs.renameSync(oldPath, newPath)
+  public rename(oldPath: string, newPath: string): boolean {
+    let retVal = false
+
+    try {
+      fs.renameSync(oldPath, newPath)
+      retVal = true
+    } catch (e) {
+      log.error(`rename error for file from '${oldPath}' to ${newPath}`, e)
+    }
+
+    return retVal
   }
 
+  public unlink(path: string): boolean {
+    let retVal = false
+
+    try {
+      fs.unlinkSync(path)
+      retVal = true
+    } catch (e) {
+      log.error(`unlink error for file '${path}'`, e)
+    }
+
+    return retVal
+  }
+
+  public mkdir(path: string): boolean {
+    let retVal = false
+
+    try {
+      fs.mkdirSync(path)
+      retVal = true
+    } catch (e) {
+      log.error(`mkdir error for file '${path}'`, e)
+    }
+
+    return retVal
+  }
+
+  public rmdir(path: string): boolean {
+    let retVal = false
+
+    try {
+      fs.rmdirSync(path)
+      retVal = true
+    } catch (e) {
+      log.error(`rmdir error for file '${path}'`, e)
+    }
+
+    return retVal
+  }
+
+
+  public access(path: string, mode?: number): boolean {
+    let retVal = false
+
+    try {
+      fs.accessSync(path, mode)
+      retVal = true
+    } catch (e) {
+      log.error(`access error for '${path}'`, e)
+    }
+
+    return retVal
+  }
+
+  public hasWriteAccess(path: string): boolean {
+    return this.access(path, fs.constants.W_OK)
+  }
+
+  public hasReadAccess(path: string): boolean {
+    return this.access(path, fs.constants.R_OK)
+  }
 
   public getFilepath(filename): string {
     let absolutePath;

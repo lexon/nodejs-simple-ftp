@@ -14,6 +14,9 @@ import ListCommand from './ListCommand'
 import RetrCommand from './RetrCommand'
 import RnfrCommand from './RnfrCommand'
 import RntoCommand from './RntoCommand'
+import DeleCommand from './DeleCommand'
+import RmdCommand from './RmdCommand'
+import MkdCommand from './MkdCommand'
 
 import OptsCommand from './OptsCommand'
 import QuitCommand from './QuitCommand'
@@ -59,12 +62,12 @@ const CommandMap = {
   // cwd: 'doCwd',
   // epsv: "doEpsv",
   // eprt: "doEprt",
-  // mkd: "doMkdir",
+  mkd: MkdCommand,
   // cdup: "doCdUp",
   rnfr: RnfrCommand,
   rnto: RntoCommand,
-  // dele: "doDele",
-  // rmd: "doDele",
+  dele: DeleCommand,
+  rmd: RmdCommand,
   retr: RetrCommand,
   // stor: "doStor",
   // appe: "doAppe",

@@ -42,7 +42,7 @@ export default class Logger {
     _logger.log('debug', this.composeMessage(message), misc)
   }
 
-  public error(message) {
-    _logger.log('error', message)
+  public error(message: string, misc?: any) {
+    _logger.log('error', this.composeMessage(message), misc)
   }
 }
