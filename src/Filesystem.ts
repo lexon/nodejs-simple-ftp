@@ -25,13 +25,25 @@ export default class Filesystem {
 
 
   public getFilepath(filename): string {
-    let absolutePath = filename;
+    let absolutePath;
+
+    log.info(`Requested filepath for file: ${filename}`)
+    log.info(`Current directory ${this.currentDirectory}`)
 
     if (filename.indexOf('/') === 0) {
-      absolutePath = `${this.sandboxRootDirectory ? this.ftpBaseDir : this.ftpBaseDir}${filename}`
+      // absolutePath = `${this.sandboxRootDirectory ? this.ftpBaseDir : this.ftpBaseDir}${filename}`
+
+      // if file name is only "/", we do not want to append that
+      if (filename.length == 1) {
+        filename = ""
+      }
+
+      absolutePath = `${this.ftpBaseDir}${filename}`
     } else {
       absolutePath = `${this.currentDirectory}/${filename}`
     }
+
+    log.info(`Absolute file path: ${absolutePath}`)
 
     return absolutePath;
   }
@@ -39,10 +51,18 @@ export default class Filesystem {
   public changeCurrentDirectory(newDirectory: string): boolean {
     let retVal = false
 
+    log.info(`Change directory requested for: ${newDirectory}`)
+
     newDirectory = this.getFilepath(newDirectory)
+    log.info(`New directory: ${newDirectory}`)
+
     if (this.canChangeDirectory(newDirectory)) {
       this.currentDirectory = newDirectory;
+      log.info(`Directory changed to: ${newDirectory}`)
+
       retVal = true;
+    } else {
+      log.info(`Directory change failed.`)
     }
 
     return retVal;
