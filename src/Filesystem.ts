@@ -23,6 +23,10 @@ export default class Filesystem {
     return fs.statSync(path).isDirectory()
   }
 
+  public rename(oldPath: string, newPath: string): void {
+    fs.renameSync(oldPath, newPath)
+  }
+
 
   public getFilepath(filename): string {
     let absolutePath;
